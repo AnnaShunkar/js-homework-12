@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import ToDoArray from "./ToDoArray";
 
-const ToDoListComponent = ({ newElement }) => {
+const ToDoListComponent = () => {
     return (
         <div className="list">
-            <li>{newElement}</li>
-            <input type="checkbox"></input>
+            <ToDoArray />
         </div>
     )
 };

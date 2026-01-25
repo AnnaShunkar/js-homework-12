@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";   
+import { useState } from "react"; 
 import ToDoListComponent from "./ToDoListComponent";
  
 const ToDoComponent = () => {
@@ -27,8 +27,8 @@ const ToDoComponent = () => {
             <label>Enter new item:</label>
             <input value={input} onChange={handleChange} onKeyDown={handleKeyDown}></input>
             <ul>
-                {toDo.map((item, index) => (
-                    <ToDoListComponent key={index} newElement={item} />
+                {toDo.map((item, name) => (
+                    <ToDoListComponent key={item.id} newElement={item.name} />
                 ))}
             </ul>
             <button type="button" onClick={handleAddToDo}>Add new To Do</button>
