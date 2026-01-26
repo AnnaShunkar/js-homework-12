@@ -1,10 +1,10 @@
 import React from "react";
-import ToDoArray from "./ToDoArray";
 
-const ToDoListComponent = () => {
+const ToDoListComponent = (props) => {
     return (
         <div className="list">
-            <ToDoArray />
+            <li key={props.id}>{props.name}</li>
+            {props.children}
         </div>
     )
 };
