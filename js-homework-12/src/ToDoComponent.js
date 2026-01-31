@@ -25,9 +25,9 @@ const ToDoComponent = () => {
             handleAddToDo();
         }
     };
-    const handleDelete = () => { 
-    console.log("button is clicked");
-  }
+    const handleDelete = (id) => {
+        setToDo(prev => prev.filter(item => item.id !== id));
+    }
 
     return (
         <div className="todo-container">
@@ -38,7 +38,7 @@ const ToDoComponent = () => {
             <ul>
                 {toDo.map((element) => (
                     <ToDoListComponent key={element.id} id={element.id} name={element.name}>
-                        <ButtonComponent type={"button"} text={"Delete"} onClick={handleDelete} />
+                        <ButtonComponent type={"button"} text={"Delete"} onClick={() => handleDelete(element.id)} />
                     </ToDoListComponent>
                 ))}
             </ul>
