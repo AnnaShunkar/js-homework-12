@@ -1,0 +1,15 @@
+.list{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    padding-top: 10px;
+    text-decoration: solid;
+    text-transform: lowercase;
+    color: black;
+}
+.button{
+    border-radius: 30px;
+    background-color: white;
+    color: red;
+}

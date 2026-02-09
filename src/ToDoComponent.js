@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react"; 
 import ToDoListComponent from "./ToDoListComponent";
 import ButtonComponent from "./ButtonComponent";
+import styles from "./ToDo.module.css"
  
 const ToDoComponent = () => {
     const initailToDo = [
@@ -30,10 +31,10 @@ const ToDoComponent = () => {
     }
 
     return (
-        <div className="todo-container">
-             <h1>To Do List</h1>
-            <p>ToDo items: {toDo.length}</p>
-            <label>Enter new item:</label>
+        <div className={styles.todo}>
+             <h1 className={styles.h1}>To Do List</h1>
+            <p className={styles.items}>ToDo items: {toDo.length}</p>
+            <label className={styles.label}>Enter new item:</label>
             <input value={input} onChange={handleChange} onKeyDown={handleKeyDown}></input>
             <ul>
                 {toDo.map((element) => (
@@ -42,7 +43,7 @@ const ToDoComponent = () => {
                     </ToDoListComponent>
                 ))}
             </ul>
-            <button type="button" onClick={handleAddToDo}>Add new To Do</button>
+            <button className={styles.deleteButton} type="button" onClick={handleAddToDo}>Add new To Do</button>
 </div>
     )
 };
