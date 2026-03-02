@@ -3,7 +3,7 @@ import ToDoListComponent from "./ToDoListComponent";
 import ButtonComponent from "./ButtonComponent";
 import EditButtonComponent from "./EditButtonComponent";
 import styles from "./ToDo.module.css";
-import { getTodos, addTodo, deleteTodo, updateTodo, getTodoById } from "./api/api";
+import { getTodos, addTodo, deleteTodo, updateTodo } from "./api/api";
 
 
 const ToDoComponent = () => {

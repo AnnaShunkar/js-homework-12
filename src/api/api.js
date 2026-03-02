@@ -21,8 +21,3 @@ export const updateTodo = async (id, payload) => {
   const response = await axios.put(`/todos/${id}`, payload);
   return response.data;
 };
-
-export const getTodoById = async (id) => {
-  const response = await axios.get(`/todos/${id}`);
-  return response.data;
-};
