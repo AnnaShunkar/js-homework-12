@@ -1,33 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ToDoListComponent from "./ToDoListComponent";
 import ButtonComponent from "./ButtonComponent";
+import EditButtonComponent from "./EditButtonComponent";
 import styles from "./ToDo.module.css";
+import { getTodos, addTodo, deleteTodo, updateTodo, getTodoById } from "./api/api";
+
 
 const ToDoComponent = () => {
-  const initialToDo = [
-    { id: 1, name: "Learn React", completed: false },
-    { id: 2, name: "Build a ToDo App", completed: false },
-    { id: 3, name: "Profit!", completed: false },
-  ];
-
   const [input, setInput] = useState("");
-  const [toDo, setToDo] = useState(initialToDo);
-  const [error, setError] = useState("");
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [error, setError] = useState("");
+  const [toDo, setToDo] = useState([]);
+  const [editId, setEditId] = useState(null); 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getTodos();
+        setToDo(data);
+        console.log("get done", data);
+      } catch (error) {
+        console.error("Loading error:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const MIN = 3;
   const MAX = 20;
 
-  
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
+  const handleChange = (e) => setInput(e.target.value);
 
-  
-  const handleAddToDo = () => {
+  const handleAddToDo = async () => {
     const clean = input.trim();
-
     if (clean.length < MIN) {
       setError(`Мінімальна кількість символів: ${MIN}`);
       return;
@@ -38,27 +44,43 @@ const ToDoComponent = () => {
     }
     setError("");
 
-    const newTodo = { id: Date.now(), name: clean, completed: false };
-    setToDo([...toDo, newTodo]);
-    setInput("");
+    const newTodo = { name: clean, completed: false };
+    try {
+      const savedTodo = await addTodo(newTodo);
+      setToDo([...toDo, savedTodo]);
+      console.log("post done", savedTodo);
+      setInput("");
+    } catch (error) {
+      console.error("Помилка при додаванні:", error);
+    }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleAddToDo();
+  const handleDelete = async (id) => {
+    try {
+      await deleteTodo(id);
+      setToDo((prev) => prev.filter((item) => item.id !== id));
+      console.log("delete done", id);
+    } catch (error) {
+      console.error("Помилка при видаленні:", error);
+    }
   };
 
-  
-  const handleDelete = (id) => {
-    setToDo((prev) => prev.filter((item) => item.id !== id));
-  };
+  const handleToggle = async (id) => {
+      try {
+    const todo = toDo.find((item) => item.id === id);
+    const updatedTodo = { ...todo, completed: !todo.completed };
 
-  
-  const handleToggle = (id) => {
+    const result = await updateTodo(id, updatedTodo);
+
     setToDo((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, completed: !item.completed } : item
-      )
+      prev.map((item) => (item.id === id ? result : item))
     );
+
+    console.log("PUT done", result);
+  } catch (error) {
+    console.error("Помилка при оновленні:", error);
+  }
+
   };
 
   const filteredTodo = toDo
@@ -67,9 +89,7 @@ const ToDoComponent = () => {
       if (filter === "completed") return item.completed;
       return true;
     })
-    .filter((item) =>
-      item.name.toLowerCase().includes(search.toLowerCase())
-    );
+    .filter((item) => item.name?.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className={styles.todo}>
@@ -80,7 +100,7 @@ const ToDoComponent = () => {
       <input
         value={input}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => e.key === "Enter" && handleAddToDo()}
       />
 
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -118,6 +138,11 @@ const ToDoComponent = () => {
               text="Delete"
               onClick={() => handleDelete(element.id)}
             />
+            <ButtonComponent
+              type="button"
+              text="Edit"
+              onClick={() => setEditId(element.id)}
+            />
           </ToDoListComponent>
         ))}
       </ul>
@@ -129,6 +154,16 @@ const ToDoComponent = () => {
       >
         Add new To Do
       </button>
+
+      {editId && (
+        <EditButtonComponent
+          id={editId}
+          onClose={() => setEditId(null)} 
+          onUpdate={(updated) =>
+            setToDo(toDo.map((t) => (t.id === updated.id ? updated : t)))
+          }
+        />
+      )}
     </div>
   );
 };

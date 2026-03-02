@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "name": "Learn React",
+      "completed": true,
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Build a Todo App",
+      "completed": false
+    }
+  ]
+}
