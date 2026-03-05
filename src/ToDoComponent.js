@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ToDoListComponent from "./ToDoListComponent";
 import ButtonComponent from "./ButtonComponent";
 import EditButtonComponent from "./EditButtonComponent";
-import styles from "./ToDo.module.css";
+import styles from "./css/ToDo.module.css";
 import { getTodos, addTodo, deleteTodo, updateTodo } from "./api/api";
 
 
@@ -35,11 +35,11 @@ const ToDoComponent = () => {
   const handleAddToDo = async () => {
     const clean = input.trim();
     if (clean.length < MIN) {
-      setError(`Мінімальна кількість символів: ${MIN}`);
+      setError(`Minimum number of characters: ${MIN}`);
       return;
     }
     if (clean.length > MAX) {
-      setError(`Максимальна кількість символів: ${MAX}`);
+      setError(`Maximum number of characters: ${MAX}`);
       return;
     }
     setError("");
@@ -51,7 +51,7 @@ const ToDoComponent = () => {
       console.log("post done", savedTodo);
       setInput("");
     } catch (error) {
-      console.error("Помилка при додаванні:", error);
+      console.error("Error while adding:", error);
     }
   };
 
@@ -61,7 +61,7 @@ const ToDoComponent = () => {
       setToDo((prev) => prev.filter((item) => item.id !== id));
       console.log("delete done", id);
     } catch (error) {
-      console.error("Помилка при видаленні:", error);
+      console.error("Error while deleting:", error);
     }
   };
 
@@ -78,7 +78,7 @@ const ToDoComponent = () => {
 
     console.log("PUT done", result);
   } catch (error) {
-    console.error("Помилка при оновленні:", error);
+    console.error("Error while updating:", error);
   }
 
   };
@@ -106,20 +106,20 @@ const ToDoComponent = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div style={{ marginTop: "10px" }}>
-        <label>Фільтр: </label>
+        <label>Filter: </label>
         <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-          <option value="all">Всі</option>
-          <option value="active">Активні</option>
-          <option value="completed">Завершені</option>
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="completed">Completed</option>
         </select>
       </div>
 
       <div style={{ marginTop: "10px" }}>
-        <label>Пошук: </label>
+        <label>Search: </label>
         <input
           type="text"
           value={search}
-          placeholder="Пошук..."
+          placeholder="Search..."
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>

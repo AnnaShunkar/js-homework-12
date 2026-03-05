@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getTodoById, updateTodo } from "./api/api";
-import styles from "./ToDo.module.css";
+import styles from "./css/ToDo.module.css";
 
 const EditTodoComponent = ({ id, onClose, onUpdate }) => {
   const [name, setName] = useState("");
@@ -15,7 +15,7 @@ const EditTodoComponent = ({ id, onClose, onUpdate }) => {
         setCompleted(todo.completed || false);
         console.log("GET single todo done", todo);
       } catch (err) {
-        setError("Помилка при отриманні todo");
+        setError("Error fetching todo");
       }
     };
     fetchTodo();
@@ -29,23 +29,23 @@ const EditTodoComponent = ({ id, onClose, onUpdate }) => {
       onUpdate(updated); 
       onClose();       
     } catch (err) {
-      setError("Помилка при збереженні");
+      setError("Error saving todo");
     }
   };
 
   return (
     <div className={styles.modal} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h3>Редагувати todo</h3>
+        <h3>Edit todo</h3>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <input
           type="text"
-          placeholder="Назва"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <label style={{ display: "block", marginTop: "10px" }}>
-          Виконана:
+          Completed:
           <input
             type="checkbox"
             checked={completed}
@@ -54,10 +54,10 @@ const EditTodoComponent = ({ id, onClose, onUpdate }) => {
         </label>
         <div style={{ marginTop: "10px" }}>
           <button className={styles.deleteButton} onClick={handleSave}>
-            Зберегти
+            Save
           </button>
           <button className={styles.deleteButton} onClick={onClose}>
-            Закрити
+            Close
           </button>
         </div>
       </div>
