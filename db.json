@@ -1,0 +1,42 @@
+{
+  "todos": [
+    {
+      "name": "Build a Todo App now",
+      "completed": true,
+      "id": "2"
+    },
+    {
+      "name": "hdhdhdh",
+      "completed": false,
+      "id": "e5db"
+    },
+    {
+      "id": "66ea",
+      "name": "kdkdkdk",
+      "completed": false
+    },
+    {
+      "id": "d4b3",
+      "name": "kdkdkd",
+      "completed": false
+    },
+    {
+      "id": "f9d2",
+      "name": "kdkkkd",
+      "completed": false
+    },
+    {
+      "id": "07fe",
+      "name": "dlkkddkl",
+      "completed": false
+    }
+  ],
+  "auth": [
+    {
+      "id": "1",
+      "username": "Anna",
+      "email": "anna.shunkar4@gmail.com",
+      "isAuthenticated": true
+    }
+  ]
+}

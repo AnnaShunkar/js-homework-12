@@ -1,24 +1,59 @@
-import React from 'react';
-import ToDoComponent from './ToDoComponent';  
 import './App.css';
+import { lazy, Suspense, useState } from 'react';
+import { Routes, Route } from 'react-router';
+import PrivateRoute from './PrivateRoutes/PrivateRoute';
 
-// 1. Додати чекбокс і якщо він “checked” то тудушка має стати закресленой (тобто звершена).
-// 2. Додати “select” з опціями “Активний”, “Завершений” і “Всі”.
-// 3. При виборі опції “Активний” показуємо тільки активні todo.
-// 4. При виборі опції “Завершений” показуємо тільки не активні todo.
-// 5. При виборі опції “Всі” показуємо всі todo.
-// 6. Додати валідацю на поле додавання туду. Мімальна кількість символів. Максимальна кількість символів.
-// 7. Якщо ввів менше ніж мімальна кількість символів показати відповідну помилку
-// 8. Якщо ввів більше ніж максимальна кількість символів показати відповідну помилку
-// 9. (Не обовʼязкове) Додати поле для пошуку і реалізувати пошук по всім todo
+const Layout = lazy(() => import('./Layout/Layout'));
+const Home = lazy(() => import('./pages/Home'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const About = lazy(() => import('./pages/About'));
+const ToDoComponent = lazy(() => import('./ToDoComponent'));
+const Login = lazy(() => import('./pages/Login'));
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem('isAuth') === 'true'
+  );
+  const [loginUser, setLoginUser] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <ToDoComponent />
-      </header>
-    </div>
+    <Suspense fallback={<h1 style={{ textAlign: "center" }}>Loading...</h1>}>
+      <div className="App">
+        <main>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route
+                path="about"
+                element={
+                  <PrivateRoute isAuthenticated={isAuthenticated}>
+                    <About />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="todo-list"
+                element={
+                  <PrivateRoute isAuthenticated={isAuthenticated}>
+                    <ToDoComponent />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="login"
+                element={
+                  <Login
+                    setLoginUser={setLoginUser}
+                    setIsAuthenticated={setIsAuthenticated}
+                  />
+                }
+              />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </main>
+      </div>
+    </Suspense>
   );
 }
 
