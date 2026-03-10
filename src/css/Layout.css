@@ -1,0 +1,37 @@
+.App-header {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background-color: #b9daf8;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    background-color: #3c7ba2;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    background-color: deepskyblue;
+    color: white;
+}
+
+.logout-btn {
+    text-decoration: none;
+    background-color: tomato;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
+.logout-btn:hover {
+    background-color: darkred;
+}

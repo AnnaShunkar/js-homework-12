@@ -25,3 +25,21 @@ export const getTodoById = async (id) => {
   const response = await axios.get(`/todos/${id}`);
   return response.data;
 };
+export const getAuthStatus = async () => {
+  const res = await axios.get("/auth/1");
+  return res.data.isAuthenticated;
+};
+
+export const loginUser = async (username, email) => {
+  await axios.patch("/auth/1", {
+    username,
+    email,
+    isAuthenticated: true
+  })
+};
+export const logoutUser = async () => {
+  await axios.patch("/auth/1", { isAuthenticated: false });
+};
+
+
+
