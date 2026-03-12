@@ -1,18 +1,10 @@
 import { Navigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { getAuthStatus } from "../api/api";
-
-const useAuth = () => {
-  return useQuery({
-    queryKey: ["auth"],
-    queryFn: getAuthStatus
-  });
-};
+import { useAuth } from "../context/AuthContext";
 
 const PrivateRoute = ({ children }) => {
-  const { data: isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
 
   return children;
