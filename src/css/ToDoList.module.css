@@ -4,15 +4,18 @@
     align-items: center;
     gap: 30px;
     padding-top: 10px;
-    text-decoration: solid;
+    text-decoration: none;
     text-transform: lowercase;
     color: black;
 }
 .button{
     border-radius: 30px;
     background-color: white;
-    color: red;
+    color: rgb(240, 105, 105);
 }
 .span {
     margin-left: 8px;
+}
+ul{
+    list-style: none;
 }

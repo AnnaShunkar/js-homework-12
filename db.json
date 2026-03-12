@@ -1,0 +1,48 @@
+{
+  "todos": [
+    {
+      "name": "hdhdhdh",
+      "completed": true,
+      "id": "e5db"
+    },
+    {
+      "id": "3051",
+      "text": {
+        "name": "kdkkd",
+        "completed": false
+      }
+    },
+    {
+      "id": "062e",
+      "text": {
+        "name": "sjjssjs",
+        "completed": false
+      }
+    },
+    {
+      "id": "d9a7",
+      "text": {
+        "name": "ksksks",
+        "completed": false
+      }
+    },
+    {
+      "name": "djkdkjd",
+      "completed": true,
+      "id": "e4ca"
+    },
+    {
+      "id": "e8c7",
+      "name": "kdkdk",
+      "completed": false
+    }
+  ],
+  "auth": [
+    {
+      "id": "1",
+      "username": "Anna",
+      "email": "anna.shunkar4@gmail.com",
+      "isAuthenticated": true
+    }
+  ]
+}
